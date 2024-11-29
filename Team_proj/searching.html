@@ -2,7 +2,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>KOR_Polimeter</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Services Ranking</title>
 <link rel="stylesheet" href="searching_style.css">
 <link rel="stylesheet" href="default_style.css">
 </head>
@@ -16,21 +17,107 @@
 				<li><a href="login.html">로그인</a></li>
 				<li><a href="main.html">로그아웃</a></li>
 				<li><a href="searching.html">인물검색</a></li>
-				<li><a>투표하기</a></li>
+				<li><a href="vote.html">투표하기</a></li>
 			</ul>
 		</nav>
 	</header>
+	
+	<!-- 검색 페이지 상단 배너 -->
 	<div class="TNB">
-		<br>
 		<hr>
 		<h2>인물 검색</h2>
 		<hr>
 	</div>
-	<section>
-	</section>
+	<div class="container">
+		<div class="filters">
+			<!-- 필터 영역 -->
+			<hr>
+			<h3>필터</h3>
+			<hr>
+			<label><input type="radio" name="filter" value="all" checked>전체</label>
+			<hr>
+			<label><input type="radio" name="filter" value="2030"> 20대 ~ 30대</label>
+			<label><input type="radio" name="filter" value="4050"> 40대 ~ 50대</label>
+			<label><input type="radio" name="filter" value="60"> 60대~</label>
+			<hr>
+			<label><input type="radio" name="filter" value="men"> 남</label>
+			<label><input type="radio" name="filter" value="women"> 여</label>
+		</div>
+		<div class="content">
+			<hr>
+			<!-- 검색 바 영역 -->
+			<div class="search-bar">
+			    <!-- 검색 조건 선택 박스 -->
+			    <select id="search-type">
+			        <option value="name">이름</option>
+			        <option value="keyword">키워드</option>
+			    </select>
+			    
+			    <!-- 검색 입력 -->
+			    <input type="text" placeholder="검색하기" id="search">
+			    
+			    <!-- 검색 버튼 -->
+			    <button id="search-btn">검색</button>
+			    
+			    <!-- Popularity 텍스트 -->
+			    <span id="popularity-label">인기도</span>
+			</div>
+			<hr>
+			<!-- 인물 리스트 영역 -->
+			<ul class="ranking-list" id="ranking-list">
+				<!-- JavaScript will render ranking items here -->
+			</ul>
+		</div>
+	</div>
 	<footer>
 		<p>Contact us at: sdg0896@gmail.com</p>
 		<p>Website created in 2024.</p>
 	</footer>
+
+	<!-- JavaScript for dynamic content -->
+	<script>
+		// 랭킹 데이터 예제
+		const rankings = [
+			{ id: 1, name: 'Google Maps', popularity: '88%', image: 'https://via.placeholder.com/40' },
+			{ id: 2, name: 'WhatsApp', popularity: '84%', image: 'https://via.placeholder.com/40' },
+			{ id: 3, name: 'Amazon', popularity: '81%', image: 'https://via.placeholder.com/40' },
+			{ id: 4, name: 'Wikipedia', popularity: '80%', image: 'https://via.placeholder.com/40' },
+			{ id: 5, name: 'Google Maps', popularity: '88%', image: 'https://via.placeholder.com/40' },
+			{ id: 6, name: 'WhatsApp', popularity: '84%', image: 'https://via.placeholder.com/40' },
+			{ id: 7, name: 'Amazon', popularity: '81%', image: 'https://via.placeholder.com/40' },
+			{ id: 8, name: 'Wikipedia', popularity: '80%', image: 'https://via.placeholder.com/40' },
+			{ id: 9, name: 'Google Maps', popularity: '88%', image: 'https://via.placeholder.com/40' },
+			{ id: 10, name: 'WhatsApp', popularity: '84%', image: 'https://via.placeholder.com/40' },
+			{ id: 11, name: 'Amazon', popularity: '81%', image: 'https://via.placeholder.com/40' },
+			{ id: 12, name: 'Wikipedia', popularity: '80%', image: 'https://via.placeholder.com/40' },
+		];
+
+		document.addEventListener('DOMContentLoaded', () => {
+			const rankingList = document.getElementById('ranking-list');
+
+			// 상위 20개 항목만 표시
+			const top20 = rankings.slice(0, 20);
+
+			rankingList.innerHTML = top20.map(item => `
+				<li class="ranking-item" data-id="${item.id}">
+					<span class="ranking-number">${item.id}</span>
+					<img src="${item.image}" alt="${item.name}">
+					<div class="ranking-details">
+						<span class="name">${item.name}</span>
+						<span class="popularity">${item.popularity}</span>
+					</div>
+				</li>
+			`).join('');
+
+			// 항목 클릭 시 상세 페이지로 이동
+			const rankingItems = document.querySelectorAll('.ranking-item');
+			rankingItems.forEach(item => {
+				item.addEventListener('click', () => {
+					const itemId = item.getAttribute('data-id');
+					window.location.href = `details.html?id=${itemId}`;
+				});
+			});
+		});
+	</script>
 </body>
 </html>
